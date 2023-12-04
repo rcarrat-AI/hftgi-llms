@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hf-tgi-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+            - name: QUANTIZE
+              value: bitsandbytes
