@@ -20,3 +20,8 @@ spec:
               value: "3000"
             - name: HOST
               value: 0.0.0.0
+            - name: HUGGING_FACE_HUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: huggingface-hub-token
+                  key: token

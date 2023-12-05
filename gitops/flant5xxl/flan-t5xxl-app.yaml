@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: flan-t5-xxl-hg-tgi
+  name: flan-t5-xxl-hf-tgi
   namespace: openshift-gitops
 spec:
   destination:

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mistral-hg-tgi
+  name: llama2-hf-tgi
   namespace: openshift-gitops
 spec:
   destination:

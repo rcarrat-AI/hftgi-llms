@@ -58,11 +58,21 @@ kubectl apply -k gitops/falcon
 kubectl apply -k gitops/llama2
 ```
 
+NOTE: this model needs to set the HF_TOKEN in a Secret to be downloaded.
+
+```md
+export HUGGING_FACE_HUB_TOKEN_BASE64=$(echo -n 'your-token-value' | base64)
+envsubst < hg-tgi/overlays/llama2-7b/hf-token-secret-template.yaml > /tmp/hf-token-secret.yaml
+kubectl apply -f /tmp/hf-token-secret.yaml -n llms
+```
+
 - [StarCoder](https://huggingface.co/bigcode/starcoder)
 
 ```md
 kubectl apply -k gitops/starcoder
 ```
+
+NOTE: this needs to set the HF_TOKEN in a Secret to be downloaded.
 
 ## Inference to the LLMs
 
@@ -74,7 +84,11 @@ We will deploy alongside the HF-TGI a Gradio ChatBot application with [Memory](h
 
 This FrontEnd will be using the HF-TGI deployed as a backend, powering and fueling the AI NPL Chat capabilities of this FrontEnd Chatbot App.
 
+![LLM0](/assets/llm3.png)
 
+Once the Gradio ChatBot is deployed, will access directly to the HF-TGI Server that serves the LLM of your choice (see section below), and will answer your questions:
+
+![LLM0](/assets/llm5.png)
 
 NOTE: If you want to know more, check the [original source rh-aiservices-bu repository](https://github.com/rh-aiservices-bu/llm-on-openshift/blob/main/examples/ui/gradio/gradio-hftgi-memory/README.md). 
 
