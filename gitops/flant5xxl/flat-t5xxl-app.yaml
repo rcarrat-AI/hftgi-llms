@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gradio-ui
+  name: flan-t5-xxl-hg-tgi
   namespace: openshift-gitops
 spec:
   destination:
@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ui/overlays/
+    path: hg-tgi/overlays/flan-t5-xl-quantize
     repoURL: https://github.com/rcarrat-AI/hftgi-llms.git
     targetRevision: main
   syncPolicy:
@@ -18,4 +18,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
