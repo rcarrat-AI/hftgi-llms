@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - gradio-ui.yaml
-  - flan-t5xxl.yaml
+  - flan-t5xxl-app.yaml

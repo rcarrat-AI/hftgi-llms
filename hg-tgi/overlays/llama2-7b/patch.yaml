@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hf-tgi-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+            - name: MODEL_ID
+              value: meta-llama/Llama-2-7b-chat-hf
+            - name: MAX_INPUT_LENGTH
+              value: "1024"
+            - name: MAX_TOTAL_TOKENS
+              value: "2048"
+            - name: HUGGINGFACE_HUB_CACHE
+              value: /models-cache
+            - name: PORT
+              value: "3000"
+            - name: HOST
+              value: 0.0.0.0

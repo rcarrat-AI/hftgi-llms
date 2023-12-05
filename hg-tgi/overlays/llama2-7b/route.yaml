@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: hf-tgi-server
+  labels:
+    app: hf-tgi-server
+spec:
+  to:
+    kind: Service
+    name: hf-tgi-server
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  wildcardPolicy: None
