@@ -28,7 +28,7 @@ Tested with A10G (g5.2xlarge) with Spot Instances using a ROSA cluster with 4.13
 
 ## Models available to deploy using GitOps
 
-- [Mistral-7B-Instruct](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1)
+### [Mistral-7B-Instruct](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1)
 
 ```md
 kubectl apply -k gitops/mistral
@@ -36,7 +36,7 @@ kubectl apply -k gitops/mistral
 
 ![LLM0](/assets/llm0.png)
 
-- [Flan-T5-XXL](https://huggingface.co/google/flan-t5-xxl)
+### [Flan-T5-XXL](https://huggingface.co/google/flan-t5-xxl)
 
 ```md
 kubectl apply -k gitops/flant5xxl
@@ -44,7 +44,7 @@ kubectl apply -k gitops/flant5xxl
 
 ![LLM0](/assets/llm8.png)
 
-- [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct)
+### [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct)
 
 ```md
 kubectl apply -k gitops/falcon
@@ -52,7 +52,7 @@ kubectl apply -k gitops/falcon
 
 ![LLM0](/assets/llm7.png)
 
-- [Llama2-7B-Chat-HF](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf)
+### [Llama2-7B-Chat-HF](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf)
 
 ```md
 kubectl apply -k gitops/llama2
@@ -66,7 +66,15 @@ envsubst < hg-tgi/overlays/llama2-7b/hf-token-secret-template.yaml > /tmp/hf-tok
 kubectl apply -f /tmp/hf-token-secret.yaml -n llms
 ```
 
-- [StarCoder](https://huggingface.co/bigcode/starcoder)
+### [CodeLlama-7b-Instruct-hf](https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf)
+
+```md
+kubectl apply -k gitops/codellama
+```
+
+![LLM0](/assets/llm10.png)
+
+### [StarCoder](https://huggingface.co/bigcode/starcoder)
 
 ```md
 kubectl apply -k gitops/starcoder
@@ -79,6 +87,10 @@ export HUGGING_FACE_HUB_TOKEN_BASE64=$(echo -n 'your-token-value' | base64)
 envsubst < hg-tgi/overlays/llama2-7b/hf-token-secret-template.yaml > /tmp/hf-token-secret.yaml
 kubectl apply -f /tmp/hf-token-secret.yaml -n llms
 ```
+
+![LLM0](/assets/llm9.png)
+
+
 
 ## Inference to the LLMs
 
