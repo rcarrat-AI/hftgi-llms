@@ -58,7 +58,7 @@ kubectl apply -k gitops/falcon
 kubectl apply -k gitops/llama2
 ```
 
-NOTE: this model needs to set the HF_TOKEN in a Secret to be downloaded.
+NOTE: this model needs to set the [HUGGING_FACE_HUB_TOKEN_BASE64](https://github.com/huggingface/text-generation-inference#using-a-private-or-gated-model) in a Secret to be downloaded.
 
 ```md
 export HUGGING_FACE_HUB_TOKEN_BASE64=$(echo -n 'your-token-value' | base64)
@@ -72,7 +72,13 @@ kubectl apply -f /tmp/hf-token-secret.yaml -n llms
 kubectl apply -k gitops/starcoder
 ```
 
-NOTE: this needs to set the HF_TOKEN in a Secret to be downloaded.
+NOTE: this model needs to set the [HF_TOKEN](https://github.com/huggingface/text-generation-inference#using-a-private-or-gated-model) in a Secret to be downloaded.
+
+```md
+export HUGGING_FACE_HUB_TOKEN_BASE64=$(echo -n 'your-token-value' | base64)
+envsubst < hg-tgi/overlays/llama2-7b/hf-token-secret-template.yaml > /tmp/hf-token-secret.yaml
+kubectl apply -f /tmp/hf-token-secret.yaml -n llms
+```
 
 ## Inference to the LLMs
 
