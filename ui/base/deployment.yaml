@@ -1,19 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: hf-tgi-server
+  name: gradio-hftgi-memory
   labels:
-    app: hf-tgi-server
+    app: gradio-hftgi-memory
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hf-tgi-server
+      app: gradio-hftgi-memory
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: hf-tgi-server
+        app: gradio-hftgi-memory
     spec:
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -23,14 +23,14 @@ spec:
       containers:
         - resources:
             limits:
-              cpu: "8"
-              memory: 24Gi
-              nvidia.com/gpu: "1"
+              cpu: "2"
+              memory: 2Gi
             requests:
-              cpu: "6"
+              cpu: "1"
+              memory: 1Gi
           readinessProbe:
             httpGet:
-              path: /health
+              path: /queue/status
               port: http
               scheme: HTTP
             timeoutSeconds: 5
@@ -41,7 +41,7 @@ spec:
           name: server
           livenessProbe:
             httpGet:
-              path: /health
+              path: /queue/status
               port: http
               scheme: HTTP
             timeoutSeconds: 8
@@ -49,18 +49,20 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           env:
-            - name: MODEL_ID
-              value: google/flan-t5-xl
-            - name: MAX_INPUT_LENGTH
-              value: "1024"
-            - name: MAX_TOTAL_TOKENS
-              value: "2048"
-            - name: HUGGINGFACE_HUB_CACHE
-              value: /models-cache
-            - name: PORT
-              value: "3000"
-            - name: HOST
-              value: "0.0.0.0"
+            - name: INFERENCE_SERVER_URL
+              value: http://hf-tgi-server.llms.svc.cluster.local:3000
+            - name: MAX_NEW_TOKENS
+              value: "512"
+            - name: TOP_K
+              value: "10"
+            - name: TOP_P
+              value: "0.95"
+            - name: TYPICAL_P
+              value: "0.95"
+            - name: TEMPERATURE
+              value: "0.01"
+            - name: REPETITION_PENALTY
+              value: "1.03"
           securityContext:
             capabilities:
               drop:
@@ -71,39 +73,25 @@ spec:
               type: RuntimeDefault
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 7860
               protocol: TCP
           imagePullPolicy: IfNotPresent
           startupProbe:
             httpGet:
-              path: /health
+              path: /queue/status
               port: http
               scheme: HTTP
             timeoutSeconds: 1
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 24
-          volumeMounts:
-            - name: models-cache
-              mountPath: /models-cache
-            - name: shm
-              mountPath: /dev/shm
           terminationMessagePolicy: File
-          image: "ghcr.io/huggingface/text-generation-inference:1.2.0"
-      volumes:
-        - name: models-cache
-          persistentVolumeClaim:
-            claimName: models-cache
-        - name: shm
-          emptyDir:
-            medium: Memory
-            sizeLimit: 1Gi
+          image: quay.io/rh-aiservices-bu/gradio-hftgi-memory:latest
       dnsPolicy: ClusterFirst
-      tolerations:
-        - key: nvidia.com/gpu
-          operator: Exists
-          effect: NoSchedule
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
