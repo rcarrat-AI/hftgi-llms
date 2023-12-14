@@ -1,4 +1,4 @@
-# Deploying HuggingFace TGI for Open Source LLMs in Kubernetes / OpenShift with GitOps
+# Deploying HuggingFace TGI for Open Source LLMs in K8s / OpenShift with GitOps
 
 The aim of this repository is to easily deploy our OpenSource LLMs in OpenShift or Kubernetes clusters using GitOps: 
 
@@ -90,8 +90,6 @@ kubectl apply -f /tmp/hf-token-secret.yaml -n llms
 
 ![LLM0](/assets/llm9.png)
 
-
-
 ## Inference to the LLMs
 
 * Check the [Inference Guide](./inference/README.md) to test your LLM deployed with Hugging Face Text Generation Inference 
@@ -112,5 +110,4 @@ NOTE: If you want to know more, check the [original source rh-aiservices-bu repo
 
 ## Extra Notes
 
-- This is just a PoC, not ready for Production!
 - Repo is heavily based in the [llm-on-openshift repo](https://github.com/rh-aiservices-bu/llm-on-openshift/tree/main/hf_tgis_deployment). Kudos to the team!
