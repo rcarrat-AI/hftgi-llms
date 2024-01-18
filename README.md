@@ -58,6 +58,10 @@ kubectl apply -k gitops/falcon
 kubectl apply -k gitops/llama2
 ```
 
+![LLM0](/assets/llm11.png)
+
+![LLM0](/assets/llm12.png)
+
 NOTE: this model needs to set the [HUGGING_FACE_HUB_TOKEN_BASE64](https://github.com/huggingface/text-generation-inference#using-a-private-or-gated-model) in a Secret to be downloaded.
 
 ```md
@@ -65,6 +69,8 @@ export HUGGING_FACE_HUB_TOKEN_BASE64=$(echo -n 'your-token-value' | base64)
 envsubst < hg-tgi/overlays/llama2-7b/hf-token-secret-template.yaml > /tmp/hf-token-secret.yaml
 kubectl apply -f /tmp/hf-token-secret.yaml -n llms
 ```
+
+![LLM0](/assets/llm13.png)
 
 ### [CodeLlama-7b-Instruct-hf](https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf)
 
