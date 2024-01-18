@@ -9,7 +9,7 @@ spec:
         - name: server
           env:
             - name: MODEL_ID
-              value: mistralai/Mixtral-8x7B-Instruct-v0.1
+              value: mistralai/Mixtral-8x7B-v0.1
             - name: MAX_INPUT_LENGTH
               value: "1024"
             - name: MAX_TOTAL_TOKENS
