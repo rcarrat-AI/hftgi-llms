@@ -36,12 +36,6 @@ kubectl apply -k gitops/mistral
 
 ![LLM0](/assets/llm0.png)
 
-### [Mixtral-8x7B-Instruct](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)
-
-```md
-kubectl apply -k gitops/mistral-8x
-```
-
 ### [Flan-T5-XXL](https://huggingface.co/google/flan-t5-xxl)
 
 ```md
